@@ -19,26 +19,29 @@ WiFiDirect createWiFiDirectExtension() {
   base::FilePath exe_path;
   if (!PathService::Get(base::DIR_EXE, &exe_path)) {
     LOG(WARNING) << "Failed to get exe path when initializing "
-      << "wifidirect_extension_bridge.dll.";
+                 << "wifidirect_extension_bridge.dll.";
     return nullptr;
   }
-  const base::FilePath extensionPath = exe_path.Append(L"wifidirect_extension_bridge.dll");
+  const base::FilePath extensionPath =
+      exe_path.Append(L"wifidirect_extension_bridge.dll");
 
-  std::unique_ptr<base::ValueMap> runtime_variables_(new base::ValueMap);
-  (*runtime_variables_)["extension_path"] = new base::StringValue(extensionPath.AsUTF8Unsafe());
+  std::unique_ptr<base::DictionaryValue::Storage> runtime_variables_(
+      new base::DictionaryValue::Storage);
+  (*runtime_variables_)["extension_path"] =
+      base::WrapUnique(new base::StringValue(extensionPath.AsUTF8Unsafe()));
   WiFiDirect extension(
-    new xwalk::extensions::XWalkExternalExtension(extensionPath));
-  extension->set_runtime_variables(*runtime_variables_);
+      new xwalk::extensions::XWalkExternalExtension(extensionPath));
+  extension->set_runtime_variables(runtime_variables_.get());
 
   if (!extension->Initialize()) {
     LOG(WARNING) << "Failed to initialize extension: "
-      << "wifidirect_extension_bridge.dll";
+                 << "wifidirect_extension_bridge.dll";
     return nullptr;
   }
   return extension;
 }
 
-} // namespace
+}  // namespace
 
 namespace xwalk {
 
