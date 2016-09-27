@@ -17,8 +17,8 @@
 # Edit these when rolling DEPS.xwalk.
 # -----------------------------------
 
-chromium_crosswalk_rev = 'a37b2b18be77625adf1528fae3febb996def7b59'
-v8_crosswalk_rev = '1bd3349683cf1569fa2efa45d411b7c97529a17a'
+chromium_crosswalk_rev = '76bc93928bec8643ae5f83fdab38240cc9a17be3'
+v8_crosswalk_rev = 'a5682e23e3ce3916b71296b4fd4703331bec760b'
 
 # We need our own copy of src/buildtools in order to have the gn and
 # clang-format binaries in a location that can be found automatically both by
